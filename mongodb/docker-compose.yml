@@ -1,0 +1,28 @@
+version: '3.1'
+
+networks:
+  mynetwork:
+    driver: bridge
+    name: mynetwork
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongodbpoc
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - mynetwork
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 1G
+volumes:
+  mongo-data:

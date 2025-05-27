@@ -1,0 +1,59 @@
+type Query {
+    movies: [Movie]
+    movieById(id: ID): Movie
+    moviesByYear(year: Int): MoviesResult
+    moviesByYearAndGenre(year: Int, genres: String): [Movie]
+    moviesByGenres(genres: [String]): MoviesResult
+}
+
+type MoviesResult {
+    count: Int
+    movies: [Movie]
+}
+
+type Movie {
+    id: ID
+    plot: String
+    genres: [String]
+    runtime: Int
+    cast: [String]
+    numMflixComments: Int
+    poster: String
+    title: String
+    fullplot: String
+    languages: [String]
+    released: String
+    directors: [String]
+    writers: [String]
+    awards: Awards
+    lastupdated: String
+    year: Int
+    imdb: Imdb
+    countries: [String]
+    type: String
+    tomatoes: Tomatoes
+    plotEmbedding: [Float]
+}
+
+type Awards {
+    wins: Int
+    nominations: Int
+    text: String
+}
+
+type Imdb {
+    rating: Float
+    votes: Int
+    id: Int
+}
+
+type Tomatoes {
+    viewer: Viewer
+    production: String
+    lastUpdated: String
+}
+
+type Viewer {
+    rating: Float
+    numReviews: Int
+}

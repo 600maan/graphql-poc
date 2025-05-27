@@ -1,0 +1,40 @@
+version: '3.1'
+
+networks:
+  my_network:
+    driver: bridge
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - my_network
+
+  java:
+    build:
+      context: .
+      dockerfile: java/Dockerfile
+    image: graphql-poc-java
+    container_name: graphql-poc-java-container
+    restart: always
+    ports:
+      - 3000:3000
+    networks:
+      - my_network
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 512M
+
+volumes:
+  mongo-data:
